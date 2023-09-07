@@ -1,6 +1,6 @@
 use questions
 CREATE TABLE WorkerDetails (
-	WORKER_ID INT NOT NULL PRIMARY KEY ,
+	WORKER_ID INT NOT NULL PRIMARY KEY,
 	FIRST_NAME CHAR(25),
 	LAST_NAME CHAR(25),
 	SALARY INT,
@@ -18,4 +18,43 @@ INSERT INTO WorkerDetails
 		(007, 'Satish', 'Kumar', 75000, '2014-01-20', 'Account'),
 		(008, 'Geetika', 'Chauhan', 90000, '2014-04-11', 'Admin');
 
-		SELECT * FROM WorkerDetails;
+		--SELECT * FROM WorkerDetails;
+
+		CREATE TABLE WorkersBonus (
+	WORKER_REF_ID INT,
+	BONUS_AMOUNT INT,
+	BONUS_DATE DATE,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES WorkerDetails(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO WorkersBonus 
+	(WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+		(001, 5000, '2016-02-20'),
+		(002, 3000, '2016-06-11'),
+		(003, 4000, '2016-02-20'),
+		(001, 4500, '2016-02-20'),
+		(002, 3500, '2016-06-11');
+
+		SELECT * FROM WorkersBonus;
+
+CREATE TABLE Title (
+	WORKER_REF_ID INT,
+	WORKER_TITLE CHAR(25),
+	AFFECTED_FROM DATE,
+	FOREIGN KEY (WORKER_REF_ID)
+		REFERENCES WorkerDetails(WORKER_ID)
+        ON DELETE CASCADE
+);
+
+INSERT INTO Title 
+	(WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+ (001, 'Manager', '2016-02-20'),
+ (002, 'Executive', '2016-06-11 '),
+ (008, 'Executive', '2016-06-11 '),
+ (005, 'Manager', '2016-06-11 '),
+ (004, 'Asst. Manager', '2016-06-11 '),
+ (007, 'Executive', '2016-06-11 '),
+ (006, 'Lead', '2016-06-11 '),
+ (003, 'Lead', '2016-06-11 ');
